@@ -40,13 +40,13 @@
 
 ;; TODO - return-to is a MUST
 (defn logout-url
-  "Must have param: return-to
+  "Must have param: returnTo
   Valid params: federated"
   ([params]
    (logout-url @global-config params))
   ([config {:as params :keys [:auth0/set-client-id]}]
    (let [params (merge
-                  (select-keys params [:auth0/return-to :auth0/federated])
+                  (select-keys params [:auth0/returnTo :auth0/federated])
                   (when set-client-id (select-keys config [:auth0/client-id])))]
      (urls/build-auth0-url config "/v2/logout" params))))
 
@@ -58,7 +58,7 @@
      :auth0/redirect-uri  "http://localhost:1111/login-user"})
 
   (logout-url
-    {:auth0/return-to "http://localhost:1111/login"
+    {:auth0/returnTo "http://localhost:1111/login"
      :auth0/federated true}))
 
 ;; SAML
